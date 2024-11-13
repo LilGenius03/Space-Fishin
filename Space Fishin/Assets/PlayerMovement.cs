@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 down = (planet.transform.position - transform.position).normalized;
         Vector3 forward = Vector3.Cross(transform.right, down);
         transform.rotation = Quaternion.LookRotation(-forward, -down);
+        Rotating();
     }
 
     private void FixedUpdate()
@@ -39,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
         float forward_input = Input.GetAxis("Vertical");
         float horizontal_input = Input.GetAxis("Horizontal");
         rb.MovePosition(rb.position + (transform.forward * forward_input * 2 * Time.fixedDeltaTime) + (transform.right * horizontal_input * 2 * Time.fixedDeltaTime));
-        Rotating();
     }
 
     private void Rotating()
