@@ -332,7 +332,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &7297970404234462606
+--- !u!1001 &116835184147801790
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -340,49 +340,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 884521956523722617, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
-      propertyPath: m_Name
-      value: fishing rod
-      objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6058004
+      value: 1.277094
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.864
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -43.831745
+      value: -43.313942
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071067
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3455400070891206027, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+    - target: {fileID: 4509778039626326529, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704632135078911990, guid: e2911b906a471094ebea6e146030d3f2, type: 3}
+      propertyPath: m_Name
+      value: fishing rod
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -395,4 +395,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1394639410}
   - {fileID: 1253119334}
-  - {fileID: 7297970404234462606}
+  - {fileID: 116835184147801790}
