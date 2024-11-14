@@ -44,7 +44,8 @@ public class PlayerMovement : MonoBehaviour
     bool is_crouching;
 
     [Header("Thrusters")]
-    [SerializeField] float thruster_force = 50f;
+    [SerializeField] float thruster_force = 100f;
+    [SerializeField] float thruster_force_grounded = 500f;
     bool is_ascending;
     bool is_descending;
 
@@ -66,15 +67,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Look();
         if (is_affected_by_gravity)
         {
+            NormalLook();
             CheckGrounded();
             OrientateToPlanet();
         }
         else
         {
-
+            SpaceLook();
         }
 
     }
@@ -119,6 +120,9 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Planet"))
         {
             is_affected_by_gravity = true;
+
+            float newCamRot = Mathf.Clamp(transform.eulerAngles.x, -rotationLimit, rotationLimit);
+            cam_pivot.transform.localEulerAngles = new Vector3(newCamRot, 0f, 0f);
         }
     }
 
@@ -127,10 +131,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Planet"))
         {
             is_affected_by_gravity = false;
+
+/*            transform.eulerAngles = new Vector3(currentCamRotationX, transform.eulerAngles.y, transform.eulerAngles.y);
+            cam_pivot.transform.localEulerAngles = new Vector3(0f, 0f, 0f);*/
         }
     }
 
-    void Look()
+    void NormalLook()
     {
         Vector3 y_rot = new Vector3(0f, look_input.x, 0f) * lookSensitivityX;
         transform.rotation = transform.rotation * Quaternion.Euler(y_rot);
@@ -209,9 +216,18 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Thruster Movement
+    void SpaceLook()
+    {
+        float x_rot = -look_input.y * lookSensitivityX;
+        float z_rot = +look_input.x * lookSensitivityY;
+        //transform.eulerAngles += new Vector3(x_rot, 0f, z_rot);
+        transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(x_rot, 0f, z_rot));
+    }
+
     void ThrusterMove()
     {
-
+        rb.AddForce(cam_pivot.forward * thruster_force * movement_input.y * Time.fixedDeltaTime, ForceMode.Acceleration);
+        rb.AddForce(cam_pivot.right * thruster_force * movement_input.x * Time.fixedDeltaTime, ForceMode.Acceleration);
     }
 
     void Ascend()
@@ -220,9 +236,9 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         if(is_affected_by_gravity)
-            rb.AddForce(transform.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(transform.up * thruster_force_grounded * Time.fixedDeltaTime, ForceMode.Acceleration);
         else
-            rb.AddForce(cam_pivot.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(transform.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
     }
 
     void Descend()
@@ -231,9 +247,9 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         if (is_affected_by_gravity)
-            rb.AddForce(-transform.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(-transform.up * thruster_force_grounded * Time.fixedDeltaTime, ForceMode.Acceleration);
         else
-            rb.AddForce(-cam_pivot.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(-transform.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
     }
     #endregion
 

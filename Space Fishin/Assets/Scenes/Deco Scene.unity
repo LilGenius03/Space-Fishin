@@ -240,14 +240,15 @@ MonoBehaviour:
   drag: 8
   speed_walk: 3
   speed_crouch: 2
-  jump_height: 0.75
-  jump_gravity_scale: 3
+  jump_height: 0.5
+  jump_gravity_scale: 1
   ground_layers:
     serializedVersion: 2
     m_Bits: 64
   height_stand: 2
   height_crouch: 1
-  thruster_force: 500
+  thruster_force: 50
+  thruster_force_grounded: 500
   check_offset: 0.1
 --- !u!1 &144441712
 GameObject:
@@ -888,7 +889,7 @@ GameObject:
   - component: {fileID: 2092786993}
   m_Layer: 6
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
