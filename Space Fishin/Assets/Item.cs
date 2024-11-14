@@ -8,5 +8,6 @@ public class Item : ScriptableObject
     public Sprite itm_icon;
 
     [Header("Stats")]
-    public int price;
+    public int buy_price;
+    public int sell_price;
 }
