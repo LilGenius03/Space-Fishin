@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Planet
-  - Interactable
+  - FishingArea
   layers:
   - Default
   - TransparentFX
@@ -14,8 +14,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
+  - FishingLayer
+  - Player
   - 
   - 
   - 

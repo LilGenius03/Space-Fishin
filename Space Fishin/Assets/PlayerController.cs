@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -15,6 +16,20 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     PlayerMovement player_movement;
     PlayerInteraction player_interaction;
 
+    public FishingRod fishingRod;
+
+    public Camera cam;
+    public GameObject bob;
+    Coroutine castCoroutine;
+    public bool isCast;
+    public bool bobActive = false;
+    public GameObject bobArea;
+
+    public float lineDistance;
+    public float lineSpeed;
+    public float bobSpeed;
+    [SerializeField] LayerMask fishingLayer;
+
     bool is_move_inputing, is_look_inputing;
     Vector2 move_input, look_input;
 
@@ -30,9 +45,18 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     void Update()
     {
-            player_movement.SetLookInput(look_input);
+        player_movement.SetLookInput(look_input);
 
-            player_movement.SetMovementInput(move_input);
+        player_movement.SetMovementInput(move_input);
+    }
+
+    void FixedUpdate()
+    {
+        if (!isCast && !bobActive)
+        {
+            Vector3 LerpedPosition = Vector3.Lerp(bob.transform.position, bobArea.transform.position, Time.fixedDeltaTime * bobSpeed);
+            bob.transform.position = new Vector3(LerpedPosition.x, bobArea.transform.position.y, LerpedPosition.z);
+        }
     }
 
     public void FreezeInput()
@@ -49,7 +73,62 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        
+        if (context.performed)
+        {
+            if(isCast == false)
+            {
+                isCast = true;
+                bobActive = true;
+                if (castCoroutine != null)
+                {
+                    StopCoroutine(castCoroutine);
+                }
+                RaycastHit hit;
+                if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, lineDistance, fishingLayer))
+                {
+                    //bob.transform.position = hit.point;
+                    castCoroutine = StartCoroutine(CastTravel(hit.point));
+                    if (hit.transform.CompareTag("FishingArea"))
+                    {
+                        Debug.Log("Fishin");
+                    }
+                }
+                else
+                {
+                    //bob.transform.position = cam.transform.position + (cam.transform.forward * lineDistance);
+                    castCoroutine = StartCoroutine(CastTravel(cam.transform.position + (cam.transform.forward * lineDistance)));
+                }
+            }
+            else
+            {
+                StopCoroutine(castCoroutine);
+                castCoroutine = StartCoroutine(ReturnCast());
+                isCast = false;
+            }
+        }
+    }
+
+    public IEnumerator CastTravel(Vector3 castPosition)
+    {
+        while(Vector3.Distance(bob.transform.position, castPosition) > 0)
+        {
+            //bob.transform.position += cam.transform.forward * Time.deltaTime;
+            bob.transform.position = Vector3.Lerp(bob.transform.position, castPosition, (lineSpeed * Time.deltaTime));
+            yield return null;
+        }
+        bob.transform.position = castPosition;
+    }
+
+    public IEnumerator ReturnCast()
+    {
+        while (Vector3.Distance(bob.transform.position, bobArea.transform.position) > 1)
+        {
+            //bob.transform.position += -cam.transform.forward * Time.deltaTime;
+            bob.transform.position = Vector3.Lerp(bob.transform.position, bobArea.transform.position, (lineSpeed * Time.deltaTime));
+            yield return null;
+        }
+        bob.transform.position = bobArea.transform.position;
+        bobActive = false;
     }
 
     public void OnCrouch(InputAction.CallbackContext context)
