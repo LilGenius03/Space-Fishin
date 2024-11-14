@@ -5,9 +5,15 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerActions
 {
+    public delegate void Event_OnFreezeInput();
+    public static event Event_OnFreezeInput DE_OnFreezeInput;
+    public delegate void Event_OnUnFreezeInput();
+    public static event Event_OnUnFreezeInput DE_OnUnFreezeInput;
+
     InputSystem_Actions playerControls;
 
     PlayerMovement player_movement;
+    PlayerInteraction player_interaction;
 
     bool is_move_inputing, is_look_inputing;
     Vector2 move_input, look_input;
@@ -18,6 +24,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         playerControls.Player.SetCallbacks(this);
         playerControls.Enable();
         player_movement = GetComponent<PlayerMovement>();
+        player_interaction = GetComponent<PlayerInteraction>();
         Cursor.visible = false;
     }
 
@@ -26,6 +33,18 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
             player_movement.SetLookInput(look_input);
 
             player_movement.SetMovementInput(move_input);
+    }
+
+    public void FreezeInput()
+    {
+        DE_OnFreezeInput?.Invoke();
+        playerControls.Disable();
+    }
+
+    public void UnFreezeInput()
+    {
+        DE_OnUnFreezeInput?.Invoke();
+        playerControls.Enable();
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -41,7 +60,12 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        
+        if (context.performed)
+        {
+            Debug.Log("tried to int");
+            player_interaction.Interact();
+        }
+            
     }
 
     public void OnJump(InputAction.CallbackContext context)

@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -139,10 +141,10 @@ public class PlayerMovement : MonoBehaviour
 
     void NormalLook()
     {
-        Vector3 y_rot = new Vector3(0f, look_input.x, 0f) * Time.deltaTime * lookSensitivityX;
+        Vector3 y_rot = new Vector3(0f, look_input.x, 0f) * lookSensitivityX;
         transform.rotation = transform.rotation * Quaternion.Euler(y_rot);
 
-        float camRotationX = look_input.y * lookSensitivityY * Time.deltaTime;
+        float camRotationX = look_input.y * lookSensitivityY;
         currentCamRotationX -= camRotationX;
         currentCamRotationX = Mathf.Clamp(currentCamRotationX, -rotationLimit, rotationLimit);
         cam_pivot.transform.localEulerAngles = new Vector3(currentCamRotationX, 0f, 0f);
@@ -218,8 +220,8 @@ public class PlayerMovement : MonoBehaviour
     #region Thruster Movement
     void SpaceLook()
     {
-        float x_rot = -look_input.y * Time.deltaTime * lookSensitivityX;
-        float z_rot = +look_input.x * Time.deltaTime * lookSensitivityY;
+        float x_rot = -look_input.y * lookSensitivityX;
+        float z_rot = +look_input.x * lookSensitivityY;
         transform.eulerAngles += new Vector3(x_rot, 0f, z_rot);
        //transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(x_rot, 0f, z_rot));
     }
@@ -252,6 +254,22 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(-transform.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
     }
     #endregion
+
+    public void ForceIntoPosition(Transform new_pos, float speed)
+    {
+        //StartCoroutine(ForcingMove(new_pos, speed));
+        cam_pivot.rotation = Quaternion.identity;
+        rb.detectCollisions = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        transform.position = new_pos.position;
+        transform.rotation = new_pos.rotation;
+    }
+
+    public void FreePlayerFromPosition()
+    {
+        rb.detectCollisions = true;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+    }
 
     public void SetMovementInput(Vector2 _new_input_dir)
     {
