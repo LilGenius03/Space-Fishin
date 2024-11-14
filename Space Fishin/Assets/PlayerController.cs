@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     PlayerMovement player_movement;
 
+    bool is_move_inputing, is_look_inputing;
+    Vector2 move_input, look_input;
+
     void Awake()
     {
         playerControls = new InputSystem_Actions();
@@ -16,6 +19,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         playerControls.Enable();
         player_movement = GetComponent<PlayerMovement>();
         Cursor.visible = false;
+    }
+
+    void Update()
+    {
+            player_movement.SetLookInput(look_input);
+
+            player_movement.SetMovementInput(move_input);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -41,12 +51,24 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        player_movement.SetLookInput(context.ReadValue<Vector2>());
+        if (context.started)
+            is_look_inputing = true;
+
+        if (context.canceled)
+            is_look_inputing = false;
+
+            look_input = context.ReadValue<Vector2>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        player_movement.SetMovementInput(context.ReadValue<Vector2>());
+        if (context.started)
+            is_move_inputing = true;
+
+        if (context.canceled)
+            is_move_inputing = false;
+
+            move_input = context.ReadValue<Vector2>();
     }
 
     public void OnNext(InputAction.CallbackContext context)
