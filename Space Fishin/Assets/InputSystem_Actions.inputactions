@@ -484,33 +484,22 @@
                 },
                 {
                     "name": "",
-                    "id": "323182df-8f90-4d29-a724-52938dd8e1c3",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Descend",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "97e2fcbe-f29c-46bd-8d98-4da01b975e3e",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Descend",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "2911c020-1666-4ca2-b071-4606dda70895",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "Descend",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "780b3286-cc16-475b-9bcf-8dc51bd4ef2d",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Descend",
                     "isComposite": false,
                     "isPartOfComposite": false

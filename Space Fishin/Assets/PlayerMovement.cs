@@ -139,10 +139,10 @@ public class PlayerMovement : MonoBehaviour
 
     void NormalLook()
     {
-        Vector3 y_rot = new Vector3(0f, look_input.x, 0f) * lookSensitivityX;
+        Vector3 y_rot = new Vector3(0f, look_input.x, 0f) * Time.deltaTime * lookSensitivityX;
         transform.rotation = transform.rotation * Quaternion.Euler(y_rot);
 
-        float camRotationX = look_input.y * lookSensitivityY;
+        float camRotationX = look_input.y * lookSensitivityY * Time.deltaTime;
         currentCamRotationX -= camRotationX;
         currentCamRotationX = Mathf.Clamp(currentCamRotationX, -rotationLimit, rotationLimit);
         cam_pivot.transform.localEulerAngles = new Vector3(currentCamRotationX, 0f, 0f);
@@ -218,10 +218,10 @@ public class PlayerMovement : MonoBehaviour
     #region Thruster Movement
     void SpaceLook()
     {
-        float x_rot = -look_input.y * lookSensitivityX;
-        float z_rot = +look_input.x * lookSensitivityY;
-        //transform.eulerAngles += new Vector3(x_rot, 0f, z_rot);
-        transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(x_rot, 0f, z_rot));
+        float x_rot = -look_input.y * Time.deltaTime * lookSensitivityX;
+        float z_rot = +look_input.x * Time.deltaTime * lookSensitivityY;
+        transform.eulerAngles += new Vector3(x_rot, 0f, z_rot);
+       //transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(x_rot, 0f, z_rot));
     }
 
     void ThrusterMove()
