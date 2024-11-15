@@ -208,4 +208,12 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         if (context.canceled)
             player_movement.SetDescend(false);
     }
+
+    public void OnRoll(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            player_movement.SetRolling(true);
+        if (context.canceled)
+            player_movement.SetRolling(false);
+    }
 }

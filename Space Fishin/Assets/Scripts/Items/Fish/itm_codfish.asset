@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 558c21d0baa8ae24c849f565c7310da3, type: 3}
-  m_Name: itm_testfish
+  m_Script: {fileID: 11500000, guid: 79fcf377c5f9ed64181a2ea35bfbb4aa, type: 3}
+  m_Name: itm_codfish
   m_EditorClassIdentifier: 
-  itm_name: Debug Fish
-  itm_icon: {fileID: 21300000, guid: 98cefb354c00bc44cb31fffd52dc4650, type: 3}
+  itm_name: Codfish
+  itm_icon: {fileID: 0}
+  max_amount: -1
   buy_price: 5
-  sell_price: 0
+  sell_price: 5
+  fish_type: 0
+  fish_model: {fileID: 0}

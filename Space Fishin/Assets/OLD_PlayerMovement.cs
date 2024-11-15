@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
 public class OLD_PlayerMovement : MonoBehaviour
@@ -95,4 +95,4 @@ public class OLD_PlayerMovement : MonoBehaviour
         rb.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
         isJumping = true;
     }
-}
+}*/
