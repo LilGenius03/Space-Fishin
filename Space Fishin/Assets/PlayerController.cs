@@ -98,6 +98,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
                         fishMovement.isHooked = true;
                         //bob.transform.position = hit.transform.position;
                         Debug.Log("Fishin");
+                        Vector3 fishDirection = fishMovement.transform.position - transform.position;
+                        player_movement.rb.AddForce(fishMovement.rb.linearVelocity, ForceMode.Acceleration);
                     }
                 }
                 else
