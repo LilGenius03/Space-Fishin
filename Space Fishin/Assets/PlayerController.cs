@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     PlayerInteraction player_interaction;
 
     public FishingRod fishingRod;
+    FishMovement fishMovement;
 
     public Camera cam;
     public GameObject bob;
@@ -29,6 +30,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     public float lineSpeed;
     public float bobSpeed;
     [SerializeField] LayerMask fishingLayer;
+    public float reelSpeed;
+    public bool inputActive;
 
     bool is_move_inputing, is_look_inputing;
     Vector2 move_input, look_input;
@@ -75,7 +78,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     {
         if (context.performed)
         {
-            if(isCast == false)
+            inputActive = true;
+            if (isCast == false)
             {
                 isCast = true;
                 bobActive = true;
@@ -90,7 +94,12 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
                     castCoroutine = StartCoroutine(CastTravel(hit.point));
                     if (hit.transform.CompareTag("FishingArea"))
                     {
+                        fishMovement = hit.transform.GetComponent<FishMovement>();
+                        fishMovement.isHooked = true;
+                        //bob.transform.position = hit.transform.position;
                         Debug.Log("Fishin");
+                        Vector3 fishDirection = fishMovement.transform.position - transform.position;
+                        player_movement.rb.AddForce(fishMovement.rb.linearVelocity, ForceMode.Acceleration);
                     }
                 }
                 else
@@ -106,6 +115,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
                 isCast = false;
             }
         }
+        else
+            inputActive = false;
     }
 
     public IEnumerator CastTravel(Vector3 castPosition)

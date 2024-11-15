@@ -8,7 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
-    Rigidbody rb;
+    public Rigidbody rb;
     [SerializeField] Transform planet;
     [SerializeField] Transform cam_pivot;
     [SerializeField] CapsuleCollider col;
