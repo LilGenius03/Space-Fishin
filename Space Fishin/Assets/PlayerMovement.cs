@@ -284,8 +284,8 @@ public class PlayerMovement : MonoBehaviour
         cam_pivot.localRotation = Quaternion.identity;
         rb.detectCollisions = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
-        transform.position = new_pos.position;
-        transform.rotation = new_pos.rotation;
+        cam_pivot.transform.position = new_pos.position;
+        cam_pivot.transform.rotation = new_pos.rotation;
     }
 
     public void FreePlayerFromPosition()

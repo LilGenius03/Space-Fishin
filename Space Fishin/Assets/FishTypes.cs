@@ -8,3 +8,4 @@ public enum FishType
     TBD_FISH02,
     DEBUG_FISH,
 }
+

@@ -13,6 +13,8 @@ public class Shop : MonoBehaviour
     [SerializeField] GameObject shop_ui, gameplay_ui;
     [SerializeField] Transform player_lookat, player_moveto;
 
+    [SerializeField] float zoom_speed;
+
     private void Start()
     {
         player_movement = player.GetComponent<PlayerMovement>();
@@ -28,9 +30,9 @@ public class Shop : MonoBehaviour
     {
         player.FreezeInput();
         player_movement.ForceIntoPosition(player_moveto);
-        while(cam.fieldOfView > 1)
+        while(cam.fieldOfView > 18)
         {
-            cam.fieldOfView -= 15 * Time.deltaTime;
+            cam.fieldOfView -= zoom_speed * Time.deltaTime;
             player_movement.ForceIntoPosition(player_moveto);
             yield return null;
         }

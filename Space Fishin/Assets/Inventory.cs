@@ -17,6 +17,10 @@ public class Inventory : MonoBehaviour
     }
 
     public Dictionary<Item, int> inventory = new Dictionary<Item, int>();
+    public Dictionary<Item, int> baits = new Dictionary<Item, int>();
+
+
+
     [SerializeField] int inventory_size = 10;
 
 
