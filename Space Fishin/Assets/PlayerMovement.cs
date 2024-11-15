@@ -264,10 +264,11 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
-    public void ForceIntoPosition(Transform new_pos, float speed)
+    public void ForceIntoPosition(Transform new_pos)
     {
         //StartCoroutine(ForcingMove(new_pos, speed));
-        cam_pivot.rotation = Quaternion.identity;
+        Debug.Log("Moving Player");
+        cam_pivot.localRotation = Quaternion.identity;
         rb.detectCollisions = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
         transform.position = new_pos.position;
