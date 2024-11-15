@@ -7,6 +7,15 @@ using UnityEngine;
 /// </summary>
 public class Inventory : MonoBehaviour
 {
+
+    public static Inventory instance;
+    private void Awake()
+    {
+        if (instance != null)
+            return;
+        instance = this;
+    }
+
     public Dictionary<Item, int> inventory = new Dictionary<Item, int>();
     [SerializeField] int inventory_size = 10;
 
