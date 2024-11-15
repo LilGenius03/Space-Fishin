@@ -37,4 +37,11 @@ public class Shop : MonoBehaviour
         }
     }
 
+    public void SellSomething(Item itm_to_sell)
+    {
+        if (player_inventory.RemoveItem(itm_to_sell))
+        {
+            player_cash += itm_to_sell.sell_price;
+        }
+    }
 }

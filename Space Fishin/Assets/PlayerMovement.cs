@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float lookSensitivityY = 1.8f;
     [SerializeField] private float rotationLimit;
     private float currentCamRotationX = 0f;
+    private float currentCamRotationZ = 0f;
+    private float currentCamRotationY = 0f;
+    bool is_rolling;
 
     [Header("Physics")]
     [SerializeField] float fake_gravity = 9.8f;
@@ -134,8 +137,9 @@ public class PlayerMovement : MonoBehaviour
         {
             is_affected_by_gravity = false;
 
-/*            transform.eulerAngles = new Vector3(currentCamRotationX, transform.eulerAngles.y, transform.eulerAngles.y);
-            cam_pivot.transform.localEulerAngles = new Vector3(0f, 0f, 0f);*/
+            currentCamRotationY = transform.eulerAngles.y;
+            //transform.rotation = Quaternion.Euler(currentCamRotationX, transform.eulerAngles.y, transform.eulerAngles.y);
+            //cam_pivot.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
         }
     }
 
@@ -220,10 +224,15 @@ public class PlayerMovement : MonoBehaviour
     #region Thruster Movement
     void SpaceLook()
     {
-        float x_rot = -look_input.y * lookSensitivityX;
-        float z_rot = +look_input.x * lookSensitivityY;
-        transform.eulerAngles += new Vector3(x_rot, 0f, z_rot);
-       //transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(x_rot, 0f, z_rot));
+        float camRotationX = -look_input.y * lookSensitivityY;
+        currentCamRotationX -= camRotationX;
+
+        float otherCamRotation = look_input.x * lookSensitivityX;
+
+        if(!is_rolling)
+            transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(camRotationX, 0f, otherCamRotation));
+        else
+            transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(0f, otherCamRotation, 0f));
     }
 
     void ThrusterMove()
@@ -240,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
         if(is_affected_by_gravity)
             rb.AddForce(transform.up * thruster_force_grounded * Time.fixedDeltaTime, ForceMode.Acceleration);
         else
-            rb.AddForce(transform.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(cam_pivot.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
     }
 
     void Descend()
@@ -251,7 +260,7 @@ public class PlayerMovement : MonoBehaviour
         if (is_affected_by_gravity)
             rb.AddForce(-transform.up * thruster_force_grounded * Time.fixedDeltaTime, ForceMode.Acceleration);
         else
-            rb.AddForce(-transform.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
+            rb.AddForce(-cam_pivot.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
     }
     #endregion
 
@@ -289,5 +298,10 @@ public class PlayerMovement : MonoBehaviour
     public void SetDescend(bool y)
     {
         is_descending = y;
+    }
+
+    public void SetRolling(bool y)
+    {
+        is_rolling = y;
     }
 }
