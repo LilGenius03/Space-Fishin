@@ -1,64 +1,9 @@
 fileFormatVersion: 2
-guid: 7b1e20eaf5f24b74ca396e4c8e94e495
+guid: 14f15a558a74f0a408969700e850050a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: BackFin
-    second: {fileID: 2100000, guid: deea48f94e610ee4d9fc4c32269c0f8b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eyelid
-    second: {fileID: 2100000, guid: 4a523baf32fd43c45b31cac57df447f9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eyelidssmall
-    second: {fileID: 2100000, guid: 4a523baf32fd43c45b31cac57df447f9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eyes
-    second: {fileID: 2100000, guid: 85ca871d5c19cc141819f1ce306b9062, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: EyesSmall
-    second: {fileID: 2100000, guid: 85ca871d5c19cc141819f1ce306b9062, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Fins
-    second: {fileID: 2100000, guid: 03ff9d006010aeb4abda95e4664797b5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FishBody
-    second: {fileID: 2100000, guid: f713127924893304bac50a0deac29e76, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: FishbodySmall
-    second: {fileID: 2100000, guid: cebcff55cbc48664ba92e32d8937bf99, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Jar
-    second: {fileID: 2100000, guid: a8610df230d793f44a6a9676b66f4240, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Mouth
-    second: {fileID: 2100000, guid: c226077abf96049499fa31e29d0e0263, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MouthSmall
-    second: {fileID: 2100000, guid: c226077abf96049499fa31e29d0e0263, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
