@@ -3,7 +3,62 @@ guid: 21552604831662a49832d231e0f4ec0b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BackFin
+    second: {fileID: 2100000, guid: a7b1e9162cae03341a01094b5790c8be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyelid
+    second: {fileID: 2100000, guid: c1efff6a34ff1f04583e8d6039023a51, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyelidssmall
+    second: {fileID: 2100000, guid: c1efff6a34ff1f04583e8d6039023a51, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: ec080939f4f4f6640b5030130715f65c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyesSmall
+    second: {fileID: 2100000, guid: ec080939f4f4f6640b5030130715f65c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fins
+    second: {fileID: 2100000, guid: 780a02e6db1026249ac8e8c8f38906d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FishBody
+    second: {fileID: 2100000, guid: 0b329bbaa256a1547950f00ddfc00001, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FishbodySmall
+    second: {fileID: 2100000, guid: 0b329bbaa256a1547950f00ddfc00001, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Jar
+    second: {fileID: 2100000, guid: 3f114abfde1d5e84eb5aa805f69fb464, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mouth
+    second: {fileID: 2100000, guid: db60791da90ad1649b6a92e9761999eb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MouthSmall
+    second: {fileID: 2100000, guid: db60791da90ad1649b6a92e9761999eb, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

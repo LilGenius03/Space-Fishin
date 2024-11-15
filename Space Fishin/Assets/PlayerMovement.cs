@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMovement : MonoBehaviour
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float fake_gravity = 9.8f;
     bool is_affected_by_gravity = true;
     [SerializeField] float drag;
+    [SerializeField] float orientate_speed;
 
     [Header("Walking")]
     [SerializeField] float speed_walk;
@@ -152,6 +154,17 @@ public class PlayerMovement : MonoBehaviour
         currentCamRotationX -= camRotationX;
         currentCamRotationX = Mathf.Clamp(currentCamRotationX, -rotationLimit, rotationLimit);
         cam_pivot.transform.localEulerAngles = new Vector3(currentCamRotationX, 0f, 0f);
+    }
+
+
+    IEnumerator LerpToOrientate(Quaternion orientate)
+    {
+        while (transform.rotation != orientate)
+        {
+            //bob.transform.position += -cam.transform.forward * Time.deltaTime;
+            transform.rotation = Quaternion.Lerp(transform.rotation, orientate, Time.deltaTime * orientate_speed);
+            yield return null;
+        }
     }
 
     #region Neutral Movement
