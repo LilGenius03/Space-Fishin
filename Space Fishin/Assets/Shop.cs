@@ -10,7 +10,7 @@ public class Shop : MonoBehaviour
 
     [SerializeField] int player_cash;
 
-    [SerializeField] GameObject shop_ui;
+    [SerializeField] GameObject shop_ui, gameplay_ui;
     [SerializeField] Transform player_lookat, player_moveto;
 
     private void Start()
@@ -35,6 +35,7 @@ public class Shop : MonoBehaviour
             yield return null;
         }
         shop_ui.SetActive(true);
+        gameplay_ui.SetActive(false);
         Cursor.visible = true;
     }
 

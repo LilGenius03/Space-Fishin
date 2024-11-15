@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79fcf377c5f9ed64181a2ea35bfbb4aa, type: 3}
-  m_Name: itm_debugfish
+  m_Name: itm_shellfish
   m_EditorClassIdentifier: 
-  itm_name: Debug Fish
+  itm_name: Shellfish
   itm_icon: {fileID: 0}
   max_amount: -1
-  buy_price: 6
+  buy_price: 5
   sell_price: 5
-  fish_type: 6
+  fish_type: 0
   fish_model: {fileID: 0}
