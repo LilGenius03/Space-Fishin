@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         player_movement.SetLookInput(look_input);
 
         player_movement.SetMovementInput(move_input);
+        bob.transform.rotation = transform.rotation;
     }
 
     void FixedUpdate()

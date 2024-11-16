@@ -12,7 +12,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform planet;
     [SerializeField] Transform cam_pivot;
     [SerializeField] CapsuleCollider col;
-
+    PlayerController player_controller;
+    public GameObject fishrod_graphics;
+    public GameObject line_graphics;
 
     float current_speed;
     Vector2 movement_input;
@@ -26,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float lookSensitivityY = 1.8f;
     [SerializeField] private float rotationLimit;
     private float currentCamRotationX = 0f;
+    bool reverse_roll;
     private float currentCamRotationZ = 0f;
     private float currentCamRotationY = 0f;
     bool is_rolling;
@@ -65,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        player_controller = GetComponent<PlayerController>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -106,6 +110,14 @@ public class PlayerMovement : MonoBehaviour
         Descend();
     }
 
+    private void LateUpdate()
+    {
+        if (is_affected_by_gravity)
+        {
+            //NormalLook();
+        }
+    }
+
     void CheckGrounded()
     {
         int numCollisions = Physics.OverlapBox(transform.position - Vector3.up * check_offset, ground_check_box, Quaternion.Euler(Vector3.zero), ground_layers).Length;
@@ -122,7 +134,11 @@ public class PlayerMovement : MonoBehaviour
     void ApplyGravity()
     {
         // Add Planet Gravity (orientates player to sphere)
-        rb.AddForce(-transform.up * fake_gravity, ForceMode.Acceleration);
+        /*float grav_mult = Vector3.Distance(transform.position, planet.position) / 40;
+        grav_mult = ExtensionMethods.Map(grav_mult, 0, 1, 1, 0);
+        grav_mult += 0.4f;
+        Debug.Log(grav_mult);*/
+        rb.AddForce(-transform.up * fake_gravity /** grav_mult*/, ForceMode.Acceleration);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -142,7 +158,10 @@ public class PlayerMovement : MonoBehaviour
         {
             is_affected_by_gravity = false;
 
-            currentCamRotationY = transform.eulerAngles.y;
+            if (cam_pivot.transform.localEulerAngles.x < 0)
+                reverse_roll = true;
+
+            //currentCamRotationY = transform.eulerAngles.y;
             //transform.rotation = Quaternion.Euler(currentCamRotationX, transform.eulerAngles.y, transform.eulerAngles.y);
             //cam_pivot.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
         }
@@ -242,10 +261,13 @@ public class PlayerMovement : MonoBehaviour
     {
         float camRotationX = -look_input.y * lookSensitivityY;
         currentCamRotationX -= camRotationX;
+        float otherCamRotation = 0f;
+        if(!reverse_roll)
+            otherCamRotation = look_input.x * lookSensitivityX;
+        else
+            otherCamRotation = -look_input.x * lookSensitivityX;
 
-        float otherCamRotation = look_input.x * lookSensitivityX;
-
-        if(!is_rolling)
+        if (!is_rolling)
             transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(camRotationX, 0f, otherCamRotation));
         else
             transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(0f, otherCamRotation, 0f));
@@ -284,6 +306,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //StartCoroutine(ForcingMove(new_pos, speed));
         Debug.Log("Moving Player");
+        player_controller.FreezeInput();
         cam_pivot.localRotation = Quaternion.identity;
         rb.detectCollisions = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -296,8 +319,11 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<PlayerController>().UnFreezeInput();
         rb.detectCollisions = true;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
-        cam_pivot.localPosition = original_cam_pos;
-        Camera.main.fieldOfView = 90;
+        if(is_crouching)
+            cam_pivot.localPosition = Vector3.up * (height_crouch - 0.2f);
+        else
+            cam_pivot.localPosition = Vector3.up * (height_stand - 0.2f);
+        //Camera.main.fieldOfView = 90;
     }
 
     public void SetMovementInput(Vector2 _new_input_dir)
