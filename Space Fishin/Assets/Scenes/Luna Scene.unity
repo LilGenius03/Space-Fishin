@@ -972,11 +972,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8352979586532150219, guid: 93d98f8bc59126f4bb02912fc4179b64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5647208
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8352979586532150219, guid: 93d98f8bc59126f4bb02912fc4179b64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.017530441
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8352979586532150219, guid: 93d98f8bc59126f4bb02912fc4179b64, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2879,13 +2879,13 @@ MonoBehaviour:
   Waypoints: []
   m_SpawnTimer: 0
   m_SpawnColor: {r: 1, g: 0, b: 0.3, a: 1}
-  m_SpawnArea: {x: 20, y: 10, z: 20}
+  m_SpawnArea: {x: 5, y: 5, z: 5}
   AIObject:
   - m_AIGroupName: Codfish
     m_prefab: {fileID: 5469719144243755217, guid: 7f2e0927cd3b8d942b61f3c1b8cbdfcc, type: 3}
     m_maxAI: 10
     m_spawnRate: 10
-    m_maxSpawnAmount: 14
+    m_maxSpawnAmount: 10
     m_enableSpawner: 1
     m_randomizeStats: 0
   - m_AIGroupName: Eelfish
@@ -3219,6 +3219,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShellFish
       objectReference: {fileID: 0}
+    - target: {fileID: 7584486452986044555, guid: e04841465c966d3449a10531c75cf9c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3384,6 +3388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e02a2dc83b9627546a0bb23460d08f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  full_item_list: {fileID: 0}
+  baits: 000000000000000000000000000000000000000000000000
   inventory_size: 10
 --- !u!1 &1000654903
 GameObject:
@@ -5065,7 +5071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linePoints:
   - {fileID: 649551380}
-  - {fileID: 0}
+  - {fileID: 673305063}
 --- !u!1 &1444667214
 GameObject:
   m_ObjectHideFlags: 0
