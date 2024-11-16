@@ -14,6 +14,8 @@ public class PlayerFishing : MonoBehaviour
     public bool bobActive = false;
     public GameObject bobArea;
 
+    bool caught_fish;
+
     public float lineDistance;
     public float lineSpeed;
     public float bobSpeed;
@@ -26,6 +28,13 @@ public class PlayerFishing : MonoBehaviour
     public Item_Bait current_bait;
     int current_bait_index;
 
+    Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     private void Update()
     {
         bob.transform.rotation = transform.rotation;
@@ -33,6 +42,14 @@ public class PlayerFishing : MonoBehaviour
         {
             Vector3 LerpedPosition = Vector3.Lerp(bob.transform.position, bobArea.transform.position, Time.fixedDeltaTime * bobSpeed);
             bob.transform.position = new Vector3(LerpedPosition.x, bobArea.transform.position.y, LerpedPosition.z);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(caught_fish && fishMovement != null)
+        {
+            rb.linearVelocity += fishMovement.rb.linearVelocity;
         }
     }
 
@@ -56,6 +73,7 @@ public class PlayerFishing : MonoBehaviour
                 {
                     fishMovement = hit.transform.GetComponent<FishMovement>();
                     fishMovement.Caught(hit.point);
+                    caught_fish = true;
                 }
             }
             else

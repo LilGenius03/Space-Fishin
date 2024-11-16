@@ -17,6 +17,12 @@ public class FishMovement : MonoBehaviour
     private Vector3 wayPoint;
     private Vector3 lastWayPoint = new Vector3(0f, 0f, 0f);
 
+    [SerializeField] float max_runaway_distance;
+    Vector3 runa_waypoint;
+    bool has_runaway_point;
+    float panic_mult;
+    [SerializeField] float max_panic_mult;
+
     //private Animator animator;
 
     private Collider col;
@@ -28,6 +34,7 @@ public class FishMovement : MonoBehaviour
         playerController = FindAnyObjectByType<PlayerFishing>();
         //animator = GetComponent<Animator>();
         SetUpNPC();
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     void SetUpNPC()
@@ -66,7 +73,23 @@ public class FishMovement : MonoBehaviour
                 hasTarget = false;
             }
         }
-        
+        else
+        {
+            if (Vector3.Distance(transform.position, Vector3.zero) < 0.5)
+                GetRunawayPoint();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isHooked)
+        {
+            Vector3 dir = runa_waypoint - transform.position;
+            //rb.linearVelocity += dir * Time.fixedDeltaTime * speed * panic_mult;
+            rb.MovePosition(transform.position + (dir * speed * panic_mult * Time.fixedDeltaTime));
+            //Debug.Log(dir * Time.fixedDeltaTime * speed * panic_mult);
+            Quaternion.LookRotation(dir);
+        }
     }
 
     public void Caught(Vector3 pos)
@@ -74,7 +97,18 @@ public class FishMovement : MonoBehaviour
         if (!isHooked)
         {
             isHooked = true;
+            rb.constraints = RigidbodyConstraints.None;
+            GetRunawayPoint();
+            panic_mult = Random.Range(1, max_panic_mult);
         }
+    }
+
+    void GetRunawayPoint()
+    {
+        runa_waypoint = transform.position + new Vector3(Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance));
+        Debug.Log(Vector3.Distance(transform.position, Vector3.zero));
+        //while(Vector3.Distance(transform.position, Vector3.zero) < 40)
+          //  runa_waypoint = transform.position + new Vector3(Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance));
     }
 
     private void OnTriggerEnter(Collider other)

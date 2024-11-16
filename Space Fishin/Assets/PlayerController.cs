@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         playerControls.Enable();
         player_movement = GetComponent<PlayerMovement>();
         player_interaction = GetComponent<PlayerInteraction>();
+        player_fishing = GetComponent<PlayerFishing>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }

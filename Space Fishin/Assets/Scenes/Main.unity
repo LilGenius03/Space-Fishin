@@ -3868,6 +3868,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1826024564446593618, guid: b09e2b7b5f7e16c409afb41e16e86f61, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0063248
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826024564446593618, guid: b09e2b7b5f7e16c409afb41e16e86f61, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1835053463407435186, guid: b09e2b7b5f7e16c409afb41e16e86f61, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -4051,6 +4059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1219298631}
   player_movement: {fileID: 1219298633}
+  planet: {fileID: 0}
 --- !u!4 &386903855
 Transform:
   m_ObjectHideFlags: 0
@@ -10824,13 +10833,13 @@ MonoBehaviour:
   isCast: 0
   bobActive: 0
   bobArea: {fileID: 997361165}
-  lineDistance: 0
-  lineSpeed: 0
-  bobSpeed: 0
+  lineDistance: 10
+  lineSpeed: 10
+  bobSpeed: 15
   fishingLayer:
     serializedVersion: 2
-    m_Bits: 0
-  reelSpeed: 0
+    m_Bits: 4294967295
+  reelSpeed: 5
   inputActive: 0
   current_bait: {fileID: 0}
 --- !u!1 &1223489603
