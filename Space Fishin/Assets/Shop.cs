@@ -19,6 +19,8 @@ public class Shop : MonoBehaviour
 
     public ItemList full_item_list;
 
+    [SerializeField] Animator mac_anim;
+
     private void Start()
     {
         player_movement = player.GetComponent<PlayerMovement>();
@@ -33,8 +35,27 @@ public class Shop : MonoBehaviour
     IEnumerator ShoppingBegin()
     {
         player.FreezeInput();
+        gameplay_ui.SetActive(false);
         player_movement.ForceIntoPosition(player_moveto);
-        while(cam.fieldOfView > 18)
+        player_movement.fishrod_graphics.SetActive(false);
+        player_movement.line_graphics.SetActive(false);
+        player.bob.SetActive(false);
+        mac_anim.SetBool("entered", true);
+        float time_delay = 0f;
+        yield return new WaitForSecondsRealtime(0.01f);
+        Debug.Log(mac_anim.GetCurrentAnimatorStateInfo(0).shortNameHash);
+        while (mac_anim.GetCurrentAnimatorStateInfo(0).shortNameHash == 1537617548)
+        {
+            Debug.Log("hey?");
+            player_movement.ForceIntoPosition(player_moveto);
+            time_delay += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        Debug.Log("yo");
+        yield return new WaitForSecondsRealtime(3f);
+        Debug.Log("bro");
+
+        while (cam.fieldOfView > 18)
         {
             cam.fieldOfView -= zoom_speed * Time.deltaTime;
             player_movement.ForceIntoPosition(player_moveto);
@@ -42,6 +63,31 @@ public class Shop : MonoBehaviour
         }
         shop_ui.SetActive(true);
         gameplay_ui.SetActive(false);
+        Cursor.visible = true;
+    }
+
+    public void LeaveShopping()
+    {
+        StartCoroutine(ShoppingEnding());
+    }
+
+    IEnumerator ShoppingEnding()
+    {
+        shop_ui.SetActive(false);
+        mac_anim.SetBool("entered", false);
+        while (cam.fieldOfView <= 90)
+        {
+            cam.fieldOfView += 50 * Time.deltaTime;
+            player_movement.ForceIntoPosition(player_moveto);
+            yield return null;
+        }
+        cam.fieldOfView = 90;
+        player.UnFreezeInput();
+        gameplay_ui.SetActive(true);
+        player_movement.fishrod_graphics.SetActive(true);
+        player_movement.line_graphics.SetActive(true);
+        player.bob.SetActive(true);
+        player_movement.FreePlayerFromPosition();
         Cursor.visible = true;
     }
 

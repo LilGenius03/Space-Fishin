@@ -4,6 +4,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
     public Rigidbody rb;
+    public PlayerMovement player_movement;
 
     void Awake()
     {
