@@ -19,8 +19,9 @@ public class Inventory : MonoBehaviour
     public ItemList full_item_list;
 
     public Dictionary<Item_Fish, int> inventory = new Dictionary<Item_Fish, int>();
+    public List<Item_Bait> baits = new List<Item_Bait>();
 
-    public int[] baits = new int[6]; // cod, jar, othercommon, eel, other rare, shell
+    public int[] bait_counts = new int[6]; // cod, jar, othercommon, eel, other rare, shell
 
 
     [SerializeField] int inventory_size = 10;
@@ -31,14 +32,44 @@ public class Inventory : MonoBehaviour
             AddItem(full_item_list.fish_array[1]);
     }
 
-    public void AddBait(int bait_type, int amount)
+    public bool AddItem(Item_Bait new_bait)
     {
-        baits[bait_type] += amount;
+        if (baits.Contains(new_bait))
+        {
+
+            if (bait_counts[new_bait.baitindex] + 1 > new_bait.max_amount && new_bait.max_amount != -1)
+            {
+                //Debug.Log(PrintBaits());
+                return false;
+            }
+            else
+            {
+                bait_counts[new_bait.baitindex]++;
+            }
+
+        }
+        else
+        {
+            baits.Add(new_bait);
+            bait_counts[new_bait.baitindex]++;
+        }
+            
+        //Debug.Log(PrintBaits());
+        return true;
     }
 
-    public void RemovedBait(int bait_type, int amount)
+    public bool RemoveItem(Item_Bait byebait)
     {
-        baits[bait_type] -= amount;
+        if (!baits.Contains(byebait))
+            return false;
+
+        bait_counts[byebait.baitindex]--;
+
+        if (bait_counts[byebait.baitindex] <= 0)
+            baits.Remove(byebait);
+
+        //Debug.Log(PrintBaits());
+        return true;
     }
 
     public bool AddItem(Item_Fish new_item)

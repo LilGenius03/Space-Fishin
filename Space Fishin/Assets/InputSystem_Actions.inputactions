@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "SwitchBaitUp",
+                    "type": "Value",
+                    "id": "60aa5cbf-b878-4388-bc14-eea1745ec06b",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -547,11 +556,22 @@
                 {
                     "name": "",
                     "id": "1bd54a6e-c0ea-49c2-8d6a-1e64856f73d0",
-                    "path": "<Mouse>/scroll",
+                    "path": "<Mouse>/scroll/down",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "SwitchBaitDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5273fb0-9dbe-4962-a951-b9443c1dd2aa",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "SwitchBaitUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

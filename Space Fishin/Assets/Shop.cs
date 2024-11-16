@@ -39,7 +39,7 @@ public class Shop : MonoBehaviour
         player_movement.ForceIntoPosition(player_moveto);
         player_movement.fishrod_graphics.SetActive(false);
         player_movement.line_graphics.SetActive(false);
-        player.bob.SetActive(false);
+        //player.bob.SetActive(false);
         mac_anim.SetBool("entered", true);
         float time_delay = 0f;
         yield return new WaitForSecondsRealtime(0.01f);
@@ -87,7 +87,7 @@ public class Shop : MonoBehaviour
         gameplay_ui.SetActive(true);
         player_movement.fishrod_graphics.SetActive(true);
         player_movement.line_graphics.SetActive(true);
-        player.bob.SetActive(true);
+        //player.bob.SetActive(true);
         player_movement.FreePlayerFromPosition();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -96,7 +96,7 @@ public class Shop : MonoBehaviour
     public void BuyBait(Item_Fish fish)
     {
         if(player_inventory.RemoveItem(fish))
-            player_inventory.AddBait(fish.bait_giver, 1);
+           // player_inventory.AddBait(fish.bait_giver, 1);
         userinterfaceshop.UpdateShop();
     }
 

@@ -6,7 +6,7 @@ public class FishMovement : MonoBehaviour
     public float speed = 5f;
     float rotationSpeed = 4.0f;
     public bool isHooked = false;
-    public PlayerController playerController;
+    public PlayerFishing playerController;
     public Item_Fish itemFish;
     public Rigidbody rb;
 
@@ -25,7 +25,7 @@ public class FishMovement : MonoBehaviour
     void Start()
     {
         fishSpawner = transform.parent.GetComponentInParent<FishSpawner>();
-        playerController = FindAnyObjectByType<PlayerController>();
+        playerController = FindAnyObjectByType<PlayerFishing>();
         //animator = GetComponent<Animator>();
         SetUpNPC();
     }
@@ -66,19 +66,17 @@ public class FishMovement : MonoBehaviour
                 hasTarget = false;
             }
         }
-        else if ((isHooked == true) && (playerController.inputActive == false))
+        
+    }
+
+    public void Caught(Vector3 pos)
+    {
+        if (!isHooked)
         {
-            playerController.bob.transform.position = transform.position;
-            Vector3 direction = transform.forward;
-            transform.Translate(0, 0, Time.deltaTime * speed);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
-        }
-        else if((isHooked == true) && (playerController.inputActive == true))
-        {
-            playerController.bob.transform.position = transform.position;
-            transform.position = Vector3.Lerp(transform.position, playerController.bobArea.transform.position, playerController.reelSpeed);
+            isHooked = true;
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")

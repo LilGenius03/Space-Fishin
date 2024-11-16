@@ -134,6 +134,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwitchBaitUp"",
+                    ""type"": ""Value"",
+                    ""id"": ""60aa5cbf-b878-4388-bc14-eea1745ec06b"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -569,11 +578,22 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1bd54a6e-c0ea-49c2-8d6a-1e64856f73d0"",
-                    ""path"": ""<Mouse>/scroll"",
+                    ""path"": ""<Mouse>/scroll/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""SwitchBaitDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c5273fb0-9dbe-4962-a951-b9443c1dd2aa"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SwitchBaitUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1173,6 +1193,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Descend = m_Player.FindAction("Descend", throwIfNotFound: true);
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
         m_Player_SwitchBaitDown = m_Player.FindAction("SwitchBaitDown", throwIfNotFound: true);
+        m_Player_SwitchBaitUp = m_Player.FindAction("SwitchBaitUp", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1264,6 +1285,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Descend;
     private readonly InputAction m_Player_Roll;
     private readonly InputAction m_Player_SwitchBaitDown;
+    private readonly InputAction m_Player_SwitchBaitUp;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1280,6 +1302,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Descend => m_Wrapper.m_Player_Descend;
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
         public InputAction @SwitchBaitDown => m_Wrapper.m_Player_SwitchBaitDown;
+        public InputAction @SwitchBaitUp => m_Wrapper.m_Player_SwitchBaitUp;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1325,6 +1348,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SwitchBaitDown.started += instance.OnSwitchBaitDown;
             @SwitchBaitDown.performed += instance.OnSwitchBaitDown;
             @SwitchBaitDown.canceled += instance.OnSwitchBaitDown;
+            @SwitchBaitUp.started += instance.OnSwitchBaitUp;
+            @SwitchBaitUp.performed += instance.OnSwitchBaitUp;
+            @SwitchBaitUp.canceled += instance.OnSwitchBaitUp;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1365,6 +1391,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SwitchBaitDown.started -= instance.OnSwitchBaitDown;
             @SwitchBaitDown.performed -= instance.OnSwitchBaitDown;
             @SwitchBaitDown.canceled -= instance.OnSwitchBaitDown;
+            @SwitchBaitUp.started -= instance.OnSwitchBaitUp;
+            @SwitchBaitUp.performed -= instance.OnSwitchBaitUp;
+            @SwitchBaitUp.canceled -= instance.OnSwitchBaitUp;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1559,6 +1588,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnDescend(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnSwitchBaitDown(InputAction.CallbackContext context);
+        void OnSwitchBaitUp(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

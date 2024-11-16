@@ -10567,6 +10567,7 @@ GameObject:
   - component: {fileID: 1219298633}
   - component: {fileID: 1219298637}
   - component: {fileID: 1219298636}
+  - component: {fileID: 1219298638}
   - component: {fileID: 1219298632}
   - component: {fileID: 1219298631}
   m_Layer: 8
@@ -10683,20 +10684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419701f60ab40004199af32ec63709fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fishingRod: {fileID: 0}
-  cam: {fileID: 446332281}
-  bob: {fileID: 1129241762}
-  isCast: 0
-  bobActive: 0
-  bobArea: {fileID: 997361165}
-  lineDistance: 10
-  lineSpeed: 10
-  bobSpeed: 15
-  fishingLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  reelSpeed: 0
-  inputActive: 0
 --- !u!4 &1219298635
 Transform:
   m_ObjectHideFlags: 0
@@ -10727,7 +10714,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   full_item_list: {fileID: 11400000, guid: 3b66349c4f838cc42a4047a54c6805a9, type: 2}
-  baits: 000000000000000000000000000000000000000000000000
+  baits: []
+  bait_counts: 000000000000000000000000000000000000000000000000
   inventory_size: 10
 --- !u!114 &1219298637
 MonoBehaviour:
@@ -10747,6 +10735,33 @@ MonoBehaviour:
     m_Bits: 2039
   cam: {fileID: 446332278}
   interaction_prompt: {fileID: 636743866}
+--- !u!114 &1219298638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219298630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52958eec0b544224e95b9ac78ff1d62a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishingRod: {fileID: 0}
+  cam: {fileID: 446332281}
+  bob: {fileID: 1129241762}
+  isCast: 0
+  bobActive: 0
+  bobArea: {fileID: 997361165}
+  lineDistance: 0
+  lineSpeed: 0
+  bobSpeed: 0
+  fishingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  reelSpeed: 0
+  inputActive: 0
+  current_bait: {fileID: 0}
 --- !u!1 &1223489603
 GameObject:
   m_ObjectHideFlags: 0
