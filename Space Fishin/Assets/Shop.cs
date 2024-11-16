@@ -13,7 +13,11 @@ public class Shop : MonoBehaviour
     [SerializeField] GameObject shop_ui, gameplay_ui;
     [SerializeField] Transform player_lookat, player_moveto;
 
+    [SerializeField] UISHOP userinterfaceshop;
+
     [SerializeField] float zoom_speed;
+
+    public ItemList full_item_list;
 
     private void Start()
     {
@@ -41,7 +45,14 @@ public class Shop : MonoBehaviour
         Cursor.visible = true;
     }
 
-    public void BuySomething(Item itm_to_buy)
+    public void BuyBait(Item_Fish fish)
+    {
+        if(player_inventory.RemoveItem(fish))
+            player_inventory.AddBait(fish.bait_giver, 1);
+        userinterfaceshop.UpdateShop();
+    }
+
+    public void BuySomething(Item_Fish itm_to_buy)
     {
         if (player_cash - itm_to_buy.buy_price >= 0 && player_inventory.AddItem(itm_to_buy))
         {
@@ -53,7 +64,7 @@ public class Shop : MonoBehaviour
         }
     }
 
-    public void SellSomething(Item itm_to_sell)
+    public void SellSomething(Item_Fish itm_to_sell)
     {
         if (player_inventory.RemoveItem(itm_to_sell))
         {

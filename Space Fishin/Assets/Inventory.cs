@@ -16,16 +16,32 @@ public class Inventory : MonoBehaviour
         instance = this;
     }
 
-    public Dictionary<Item, int> inventory = new Dictionary<Item, int>();
-    public Dictionary<Item, int> baits = new Dictionary<Item, int>();
+    public ItemList full_item_list;
 
+    public Dictionary<Item_Fish, int> inventory = new Dictionary<Item_Fish, int>();
+
+    public int[] baits = new int[6]; // cod, jar, othercommon, eel, other rare, shell
 
 
     [SerializeField] int inventory_size = 10;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+            AddItem(full_item_list.fish_array[1]);
+    }
 
+    public void AddBait(int bait_type, int amount)
+    {
+        baits[bait_type] += amount;
+    }
 
-    public bool AddItem(Item new_item)
+    public void RemovedBait(int bait_type, int amount)
+    {
+        baits[bait_type] -= amount;
+    }
+
+    public bool AddItem(Item_Fish new_item)
     {
         if (inventory.Count + 1 > inventory_size)
             return false;
@@ -49,7 +65,7 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public bool RemoveItem(Item itm)
+    public bool RemoveItem(Item_Fish itm)
     {
         if (!inventory.ContainsKey(itm))
             return false;
@@ -66,7 +82,7 @@ public class Inventory : MonoBehaviour
     string PrintInv()
     {
         string s = "Inventory: \n";
-        foreach(KeyValuePair<Item, int> itm in inventory)
+        foreach(KeyValuePair<Item_Fish, int> itm in inventory)
         {
             s += itm.Key.itm_name + ": " + itm.Value + "\n";
         }

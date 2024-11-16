@@ -13,6 +13,7 @@ public class PlayerInteraction : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, interaction_dist, interaction_layers))
         {
+            Debug.Log(hit.transform.name);
             if (hit.transform.CompareTag("Interactable"))
             {
                 hit.transform.GetComponent<Interactable>().Interact();

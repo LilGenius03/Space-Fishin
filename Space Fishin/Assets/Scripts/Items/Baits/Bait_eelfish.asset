@@ -9,14 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79fcf377c5f9ed64181a2ea35bfbb4aa, type: 3}
-  m_Name: itm_debugfish
+  m_Script: {fileID: 11500000, guid: 1d491d685e8cde44dae42fade4445e7b, type: 3}
+  m_Name: Bait_eelfish
   m_EditorClassIdentifier: 
-  itm_name: Debug Fish
+  itm_name: Debug Bait
   itm_icon: {fileID: 0}
-  max_amount: -1
-  buy_price: 6
-  sell_price: 5
-  fish_type: 6
-  fish_model: {fileID: 0}
-  bait_giver: 2
+  max_amount: 0
+  buy_price: 0
+  sell_price: 0
+  attract_types_of_fish: 0000000001000000

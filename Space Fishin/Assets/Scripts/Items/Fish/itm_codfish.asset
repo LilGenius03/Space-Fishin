@@ -19,3 +19,4 @@ MonoBehaviour:
   sell_price: 5
   fish_type: 0
   fish_model: {fileID: 0}
+  bait_giver: 0

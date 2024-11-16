@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform cam_pivot;
     [SerializeField] CapsuleCollider col;
 
+
     float current_speed;
     Vector2 movement_input;
     Vector2 look_input;
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     private float currentCamRotationZ = 0f;
     private float currentCamRotationY = 0f;
     bool is_rolling;
+    Vector3 original_cam_pos;
 
     [Header("Physics")]
     [SerializeField] float fake_gravity = 9.8f;
@@ -69,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         current_speed = speed_walk;
+        original_cam_pos = cam_pivot.localPosition;
     }
 
     // Update is called once per frame
@@ -290,8 +293,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void FreePlayerFromPosition()
     {
+        GetComponent<PlayerController>().UnFreezeInput();
         rb.detectCollisions = true;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
+        cam_pivot.localPosition = original_cam_pos;
+        Camera.main.fieldOfView = 90;
     }
 
     public void SetMovementInput(Vector2 _new_input_dir)
