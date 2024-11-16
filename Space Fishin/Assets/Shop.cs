@@ -64,6 +64,7 @@ public class Shop : MonoBehaviour
         shop_ui.SetActive(true);
         gameplay_ui.SetActive(false);
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void LeaveShopping()
@@ -88,7 +89,8 @@ public class Shop : MonoBehaviour
         player_movement.line_graphics.SetActive(true);
         player.bob.SetActive(true);
         player_movement.FreePlayerFromPosition();
-        Cursor.visible = true;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void BuyBait(Item_Fish fish)

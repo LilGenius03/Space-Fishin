@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         player_movement = GetComponent<PlayerMovement>();
         player_interaction = GetComponent<PlayerInteraction>();
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -52,15 +53,20 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
         player_movement.SetMovementInput(move_input);
         bob.transform.rotation = transform.rotation;
-    }
-
-    void FixedUpdate()
-    {
         if (!isCast && !bobActive)
         {
             Vector3 LerpedPosition = Vector3.Lerp(bob.transform.position, bobArea.transform.position, Time.fixedDeltaTime * bobSpeed);
             bob.transform.position = new Vector3(LerpedPosition.x, bobArea.transform.position.y, LerpedPosition.z);
         }
+    }
+
+    void FixedUpdate()
+    {
+        /*if (!isCast && !bobActive)
+        {
+            Vector3 LerpedPosition = Vector3.Lerp(bob.transform.position, bobArea.transform.position, Time.fixedDeltaTime * bobSpeed);
+            bob.transform.position = new Vector3(LerpedPosition.x, bobArea.transform.position.y, LerpedPosition.z);
+        }*/
     }
 
     public void FreezeInput()
@@ -100,7 +106,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
                         //bob.transform.position = hit.transform.position;
                         Debug.Log("Fishin");
                         Vector3 fishDirection = fishMovement.transform.position - transform.position;
-                        player_movement.rb.AddForce(fishMovement.rb.linearVelocity, ForceMode.Acceleration);
+                        
                     }
                 }
                 else

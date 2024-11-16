@@ -1,9 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -58,8 +55,20 @@ public class PlayerMovement : MonoBehaviour
     [Header("Thrusters")]
     [SerializeField] float thruster_force = 100f;
     [SerializeField] float thruster_force_grounded = 500f;
+    public float fuel;
+    [SerializeField] float fuel_max;
+    bool out_of_fuel;
     bool is_ascending;
     bool is_descending;
+    [SerializeField] Slider fuel_ui;
+    [SerializeField] GameObject outoffuel_ui;
+
+    float oxygen;
+    [SerializeField] float max_oxygen = 30;
+    [SerializeField] float oxygen_return_rate = 2;
+    [SerializeField] Slider oxygen_ui;
+    [SerializeField] GameObject lowoxygen_ui;
+    public bool is_dead;
 
     [Header("Ground Checking")]
     public float check_offset = 0.1f;
@@ -76,6 +85,9 @@ public class PlayerMovement : MonoBehaviour
     {
         current_speed = speed_walk;
         original_cam_pos = cam_pivot.localPosition;
+        fuel_ui.maxValue = fuel_max;
+        oxygen_ui.maxValue = max_oxygen;
+        oxygen = max_oxygen;
     }
 
     // Update is called once per frame
@@ -83,15 +95,33 @@ public class PlayerMovement : MonoBehaviour
     {
         if (is_affected_by_gravity)
         {
-            NormalLook();
+            //NormalLook();
             CheckGrounded();
             OrientateToPlanet();
+            if (oxygen < max_oxygen)
+                oxygen += oxygen_return_rate * Time.deltaTime;
+            else
+                oxygen = max_oxygen;
         }
         else
         {
+            oxygen -= Time.deltaTime;
             SpaceLook();
         }
-
+        fuel_ui.value = fuel;
+        if(fuel <= 0 && !out_of_fuel)
+        {
+            fuel = 0;
+            out_of_fuel = true;
+            outoffuel_ui.SetActive(true);
+        }
+        oxygen_ui.value = oxygen;
+        if (oxygen <= 0 && !is_dead)
+        {
+            oxygen = 0;
+            is_dead = true;
+            //Dead Func;
+        }
     }
 
     void FixedUpdate()
@@ -103,7 +133,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            ThrusterMove();
+            if(fuel > 0)
+                ThrusterMove();
         }
 
         Ascend();
@@ -114,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (is_affected_by_gravity)
         {
-            //NormalLook();
+            NormalLook();
         }
     }
 
@@ -277,6 +308,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.AddForce(cam_pivot.forward * thruster_force * movement_input.y * Time.fixedDeltaTime, ForceMode.Acceleration);
         rb.AddForce(cam_pivot.right * thruster_force * movement_input.x * Time.fixedDeltaTime, ForceMode.Acceleration);
+        if(movement_input != Vector2.zero)
+        {
+            fuel -= Time.fixedDeltaTime;
+        }
     }
 
     void Ascend()
@@ -288,6 +323,8 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(transform.up * thruster_force_grounded * Time.fixedDeltaTime, ForceMode.Acceleration);
         else
             rb.AddForce(cam_pivot.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
+
+        fuel -= Time.fixedDeltaTime;
     }
 
     void Descend()
@@ -299,8 +336,15 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(-transform.up * thruster_force_grounded * Time.fixedDeltaTime, ForceMode.Acceleration);
         else
             rb.AddForce(-cam_pivot.up * thruster_force * Time.fixedDeltaTime, ForceMode.Acceleration);
+
+        fuel -= Time.fixedDeltaTime;
     }
     #endregion
+
+    public void FillUpFuel()
+    {
+        fuel = fuel_max;
+    }
 
     public void ForceIntoPosition(Transform new_pos)
     {

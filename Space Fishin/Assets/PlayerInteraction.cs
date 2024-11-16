@@ -27,6 +27,8 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     interaction_prompt.text = hit.transform.GetComponent<Interactable>().interact_prompt;
                 }
+                else
+                    interaction_prompt.text = "";
             }
             else
                 interaction_prompt.text = "";

@@ -181,6 +181,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 972fd5457fe3e364e9c875197d8d18dd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7638676056062322805}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 972fd5457fe3e364e9c875197d8d18dd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5343504758469782431}
   m_SourcePrefab: {fileID: 100100000, guid: 972fd5457fe3e364e9c875197d8d18dd, type: 3}
 --- !u!1 &7584486452986044555 stripped
 GameObject:
@@ -249,5 +252,32 @@ MonoBehaviour:
   isHooked: 0
   playerController: {fileID: 0}
   itemFish: {fileID: 11400000, guid: 0ef9e7164eb03b948890af9ce1548bd3, type: 2}
-  rb: {fileID: 0}
+  rb: {fileID: 5478520890898631993, guid: 7f2e0927cd3b8d942b61f3c1b8cbdfcc, type: 3}
   fishSpawner: {fileID: 0}
+--- !u!54 &5343504758469782431
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7584486452986044555}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
