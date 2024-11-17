@@ -2078,6 +2078,13 @@ MonoBehaviour:
     m_maxSpawnAmount: 10
     m_enableSpawner: 1
     m_randomizeStats: 1
+  - m_AIGroupName: Subfish
+    m_prefab: {fileID: 5469719144243755217, guid: 3761b228cf152ee47bad99d15b18974d, type: 3}
+    m_maxAI: 40
+    m_spawnRate: 0
+    m_maxSpawnAmount: 10
+    m_enableSpawner: 1
+    m_randomizeStats: 1
 --- !u!135 &241589307
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10988,8 +10995,8 @@ MonoBehaviour:
   col: {fileID: 1219298632}
   fishrod_graphics: {fileID: 1440901656}
   line_graphics: {fileID: 458568464}
-  lookSensitivityX: 1
-  lookSensitivityY: 1
+  lookSensitivityX: 8
+  lookSensitivityY: 8
   rotationLimit: 85
   fake_gravity: 15
   drag: 8

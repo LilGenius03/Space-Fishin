@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
@@ -70,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject lowoxygen_ui;
     public bool is_dead;
 
+    public bool freezsere;
+
     [Header("Ground Checking")]
     public float check_offset = 0.1f;
     Vector3 ground_check_box = new(0.5f, 0.1f, 0.5f);
@@ -124,6 +127,10 @@ public class PlayerMovement : MonoBehaviour
             is_dead = true;
             Die();
         }
+
+        if(!freezsere)
+            look_input = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+
     }
 
     void FixedUpdate()

@@ -112,9 +112,8 @@ public class PlayerFishing : MonoBehaviour
         {
             if(caught_fish)
             {
-                float chance = (100 - fishMovement.stamina) / 100;
-                float ranChance = Random.Range(0, 1);
-                if(ranChance > chance)
+                pulls--;
+                if(pulls <= 0)
                 {
                     Release(fishMovement);
                     return;
@@ -138,6 +137,8 @@ public class PlayerFishing : MonoBehaviour
     {
         if (fm != null && fm != fishMovement)
                 return;
+        if (!caught_fish)
+            return;
         caught_fish = false;
         if (fishMovement != null)
             fishMovement.isHooked = false;
@@ -148,6 +149,7 @@ public class PlayerFishing : MonoBehaviour
         constant_force.force = Vector3.zero;
         constant_force.enabled = false;
         SetGlowbits();
+        pulls = 3;
     }
 
     public IEnumerator CastTravel(Vector3 castPosition)

@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     void Update()
     {
-        player_movement.SetLookInput(look_input);
+        //player_movement.SetLookInput(look_input);
 
         player_movement.SetMovementInput(move_input);
     }
@@ -47,12 +47,15 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     {
         DE_OnFreezeInput?.Invoke();
         playerControls.Disable();
+        player_movement.freezsere = true;
     }
 
     public void UnFreezeInput()
     {
         DE_OnUnFreezeInput?.Invoke();
         playerControls.Enable();
+        player_movement.freezsere = false;
+
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -90,7 +93,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         if (context.canceled)
             is_look_inputing = false;
 
-            look_input = context.ReadValue<Vector2>();
+            //look_input = context.ReadValue<Vector2>();
     }
 
     public void OnMove(InputAction.CallbackContext context)

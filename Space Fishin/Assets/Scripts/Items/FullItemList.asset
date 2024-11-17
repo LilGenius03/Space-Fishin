@@ -22,9 +22,9 @@ MonoBehaviour:
   fish_array:
   - {fileID: 11400000, guid: 6666c19e64a38c144a8d647b24c87394, type: 2}
   - {fileID: 11400000, guid: 7a11abfb476bcf84caeec7d504568ea1, type: 2}
-  - {fileID: 11400000, guid: 7926a619794379c419f4cd96da90a857, type: 2}
-  - {fileID: 11400000, guid: 3890aca33a0b7d34697f90d7862e4c91, type: 2}
   - {fileID: 11400000, guid: e3628b9f9352d7643be4773fa8a4bf9a, type: 2}
+  - {fileID: 11400000, guid: 3890aca33a0b7d34697f90d7862e4c91, type: 2}
+  - {fileID: 11400000, guid: eb805317238bb74418ea03602976eec9, type: 2}
   - {fileID: 11400000, guid: 0ef9e7164eb03b948890af9ce1548bd3, type: 2}
   rarity_colours:
   - {r: 0.1508894, g: 1, b: 0, a: 1}
