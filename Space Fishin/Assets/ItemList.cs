@@ -13,6 +13,8 @@ public class ItemList : ScriptableObject
     public Item_Fish debug_fish;
     public Item_Fish[] fish_array;
 
+    public Color[] rarity_colours;
+
     [Header("Bait")]
     public Item_Bait bait_jarfish;
     public Item_Bait bait_shellfish;

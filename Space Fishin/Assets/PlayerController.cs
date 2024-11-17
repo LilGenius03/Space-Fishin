@@ -146,14 +146,14 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
 
     public void OnSwitchBaitUp(InputAction.CallbackContext context)
     {
-        if (context.performed)
-            player_fishing.SwitchBait(true);
+       // if (context.performed)
+         //   player_fishing.SwitchBait(true);
     }
 
     public void OnSwitchBaitDown(InputAction.CallbackContext context)
     {
-        if (context.performed)
-            player_fishing.SwitchBait(false);
+        //if (context.performed)
+           // player_fishing.SwitchBait(false);
     }
 
     public void OnRelease(InputAction.CallbackContext context)

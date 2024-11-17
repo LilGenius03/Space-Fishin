@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FishMovement : MonoBehaviour
 {
+    public int rarity_index; // 0 -common 2-legendary
+
     public float speed = 5f;
     float rotationSpeed = 4.0f;
     public float resistance = 1;
@@ -125,7 +127,7 @@ public class FishMovement : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             isHooked = false;
-            playerController.Release();
+            playerController.Release(this);
             this.gameObject.SetActive(false);
             Inventory.instance.AddItem(itemFish);
         }

@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d9ba3cfe785aa4f940f77bec38f1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rarity_index: 2
   speed: 10
   resistance: 1
   isHooked: 0

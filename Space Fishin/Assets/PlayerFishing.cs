@@ -28,9 +28,14 @@ public class PlayerFishing : MonoBehaviour
     public Item_Bait current_bait;
     int current_bait_index;
 
+    public MeshRenderer[] glowbits;
+
     Rigidbody rb;
 
+    int pulls = 3;
+
     [SerializeField] ConstantForce constant_force;
+    [SerializeField] ItemList imsd;
 
     private void Start()
     {
@@ -94,6 +99,7 @@ public class PlayerFishing : MonoBehaviour
                     fishMovement.Caught(hit.point);
                     caught_fish = true;
                     constant_force.enabled = true;
+                    SetGlowbits();
                 }
             }
             else
@@ -106,6 +112,7 @@ public class PlayerFishing : MonoBehaviour
         {
             if(caught_fish)
             {
+                
                 Vector3 dir = fishMovement.transform.position - transform.position;
                 fishMovement.rb.AddForce(-dir * 10 * fishMovement.resistance, ForceMode.VelocityChange);
             }
@@ -119,8 +126,10 @@ public class PlayerFishing : MonoBehaviour
         }
     }
 
-    public void Release()
+    public void Release(FishMovement fm = null)
     {
+        if (fm != null && fm != fishMovement)
+                return;
         caught_fish = false;
         if (fishMovement != null)
             fishMovement.isHooked = false;
@@ -130,6 +139,7 @@ public class PlayerFishing : MonoBehaviour
         isCast = false;
         constant_force.force = Vector3.zero;
         constant_force.enabled = false;
+        SetGlowbits();
     }
 
     public IEnumerator CastTravel(Vector3 castPosition)
@@ -179,6 +189,25 @@ public class PlayerFishing : MonoBehaviour
             }
         }
 
+    }
+
+    void SetGlowbits()
+    {
+        if (fishMovement != null)
+        {
+            foreach (MeshRenderer mr in glowbits)
+            {
+                mr.material.SetColor("_EmissionColor", imsd.rarity_colours[fishMovement.rarity_index]);
+            }
+        }
+        else
+        {
+            foreach (MeshRenderer mr in glowbits)
+            {
+                mr.material.SetColor("_EmissionColor", Color.white);
+            }
+        }
+        
     }
 
 }

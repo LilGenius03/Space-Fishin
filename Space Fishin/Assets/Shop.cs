@@ -5,7 +5,7 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] PlayerController player;
     PlayerMovement player_movement;
-    PlayerFishing player_fis;
+    [SerializeField] PlayerFishing player_fis;
     Inventory player_inventory;
     [SerializeField] Camera cam;
 
@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour
     {
         player_movement = player.GetComponent<PlayerMovement>();
         player_inventory = player.GetComponent<Inventory>();
+        
     }
 
     public void BeginShopping()
