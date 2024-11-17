@@ -31,6 +31,7 @@ public class HotBarUI : MonoBehaviour
     {
         StopAllCoroutines();
         UpdateUI();
+        gameObject.SetActive(true);
         co = StartCoroutine(TempShow());
     }
 

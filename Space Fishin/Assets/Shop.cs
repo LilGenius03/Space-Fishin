@@ -5,6 +5,7 @@ public class Shop : MonoBehaviour
 {
     [SerializeField] PlayerController player;
     PlayerMovement player_movement;
+    PlayerFishing player_fis;
     Inventory player_inventory;
     [SerializeField] Camera cam;
 
@@ -39,7 +40,7 @@ public class Shop : MonoBehaviour
         player_movement.ForceIntoPosition(player_moveto);
         player_movement.fishrod_graphics.SetActive(false);
         player_movement.line_graphics.SetActive(false);
-        //player.bob.SetActive(false);
+        player_fis.bob.SetActive(false);
         mac_anim.SetBool("entered", true);
         float time_delay = 0f;
         yield return new WaitForSecondsRealtime(0.01f);
@@ -87,7 +88,7 @@ public class Shop : MonoBehaviour
         gameplay_ui.SetActive(true);
         player_movement.fishrod_graphics.SetActive(true);
         player_movement.line_graphics.SetActive(true);
-        //player.bob.SetActive(true);
+        player_fis.bob.SetActive(true);
         player_movement.FreePlayerFromPosition();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

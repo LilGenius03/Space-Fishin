@@ -125,7 +125,7 @@ public class FishMovement : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             isHooked = false;
-            playerController.ReturnCast();
+            playerController.Release();
             this.gameObject.SetActive(false);
             Inventory.instance.AddItem(itemFish);
         }
