@@ -2078,8 +2078,8 @@ MonoBehaviour:
     m_maxSpawnAmount: 10
     m_enableSpawner: 1
     m_randomizeStats: 1
-  - m_AIGroupName: Subfish
-    m_prefab: {fileID: 5469719144243755217, guid: 3761b228cf152ee47bad99d15b18974d, type: 3}
+  - m_AIGroupName: Flyfish
+    m_prefab: {fileID: 919132149155446097, guid: 7e15cefd7e5a77d4da8cf291183373a4, type: 3}
     m_maxAI: 40
     m_spawnRate: 0
     m_maxSpawnAmount: 10
@@ -11021,6 +11021,7 @@ MonoBehaviour:
   oxygen_ui: {fileID: 254058650}
   lowoxygen_ui: {fileID: 0}
   is_dead: 0
+  freezsere: 0
   check_offset: 0.1
   gameover_ui: {fileID: 1089585228}
 --- !u!114 &1219298634
