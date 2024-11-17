@@ -29,6 +29,9 @@ public class FishMovement : MonoBehaviour
     float panic_mult;
     [SerializeField] float max_panic_mult;
 
+    public float stamina = 100;
+    public float stam_lose_rate = 1;
+
     //public 
 
     //private Animator animator;
@@ -83,6 +86,7 @@ public class FishMovement : MonoBehaviour
         }
         else
         {
+            stamina -= Time.deltaTime;
             Vector3 dir = runa_waypoint - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), speed * panic_mult * Time.deltaTime);
            // transform.position = Vector3.MoveTowards(transform.position, runa_waypoint, speed * panic_mult * Time.deltaTime);
@@ -132,6 +136,7 @@ public class FishMovement : MonoBehaviour
             Inventory.instance.AddItem(itemFish);
         }
     }
+
 
     void CollidedNPC()
     {

@@ -300,12 +300,12 @@ public class PlayerMovement : MonoBehaviour
         if(!reverse_roll)
             otherCamRotation = look_input.x * lookSensitivityX;
         else
-            otherCamRotation = -look_input.x * lookSensitivityX;
+            otherCamRotation = look_input.x * lookSensitivityX;
 
         if (!is_rolling)
-            transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(camRotationX, 0f, otherCamRotation));
+            cam_pivot.rotation = cam_pivot.rotation * Quaternion.Euler(new Vector3(camRotationX, otherCamRotation, 0));
         else
-            transform.rotation = transform.rotation * Quaternion.Euler(new Vector3(0f, otherCamRotation, 0f));
+            cam_pivot.rotation = cam_pivot.rotation * Quaternion.Euler(new Vector3(0f, 0f, otherCamRotation));
     }
 
     void ThrusterMove()

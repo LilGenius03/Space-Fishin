@@ -369,7 +369,7 @@ MonoBehaviour:
   max_speed: 20
   min_speed: 5
   max_runaway_distance: 50
-  max_panic_mult: 3
+  max_panic_mult: 2
 --- !u!54 &5927776861617103509
 Rigidbody:
   m_ObjectHideFlags: 0

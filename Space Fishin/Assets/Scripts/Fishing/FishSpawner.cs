@@ -19,7 +19,7 @@ public class AIObjects
     [SerializeField] private string m_AIGroupName;
     [SerializeField] private GameObject m_prefab;
     [SerializeField]
-    [Range(0f, 20f)] private int m_maxAI;
+    [Range(0f, 40f)] private int m_maxAI;
     [SerializeField]
     [Range(0f, 20f)] private int m_spawnRate;
     [SerializeField]

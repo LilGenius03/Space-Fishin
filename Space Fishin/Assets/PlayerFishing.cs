@@ -96,7 +96,7 @@ public class PlayerFishing : MonoBehaviour
                 if (hit.transform.CompareTag("FishingArea"))
                 {
                     fishMovement = hit.transform.GetComponent<FishMovement>();
-                    fishMovement.Caught(hit.point);
+                    fishMovement.Caught(fishMovement.transform.position);
                     caught_fish = true;
                     constant_force.enabled = true;
                     SetGlowbits();
@@ -112,9 +112,17 @@ public class PlayerFishing : MonoBehaviour
         {
             if(caught_fish)
             {
-                
+                float chance = (100 - fishMovement.stamina) / 100;
+                float ranChance = Random.Range(0, 1);
+                if(ranChance > chance)
+                {
+                    Release(fishMovement);
+                    return;
+                }
+
+
                 Vector3 dir = fishMovement.transform.position - transform.position;
-                fishMovement.rb.AddForce(-dir * 10 * fishMovement.resistance, ForceMode.VelocityChange);
+                fishMovement.rb.AddForce(-dir * 1000 * fishMovement.resistance, ForceMode.Acceleration);
             }
             else
             {

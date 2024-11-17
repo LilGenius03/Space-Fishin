@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -6,6 +7,10 @@ public class PlayerManager : MonoBehaviour
     public Rigidbody rb;
     public PlayerMovement player_movement;
     public Transform planet;
+
+    public int points;
+
+    [SerializeField] TextMeshProUGUI score_ui;
 
     void Awake()
     {

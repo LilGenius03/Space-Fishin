@@ -22,6 +22,9 @@ public class Shop : MonoBehaviour
 
     [SerializeField] Animator mac_anim;
 
+    [SerializeField] AudioSource source;
+    [SerializeField] AudioClip[] audioclips;
+
     private void Start()
     {
         player_movement = player.GetComponent<PlayerMovement>();
@@ -51,10 +54,12 @@ public class Shop : MonoBehaviour
             Debug.Log("hey?");
             player_movement.ForceIntoPosition(player_moveto);
             time_delay += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSecondsRealtime(0.01f);
         }
         Debug.Log("yo");
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(1.5f);
+        source.PlayOneShot(audioclips[Random.Range(0, audioclips.Length)]);
+        yield return new WaitForSecondsRealtime(1.5f);
         Debug.Log("bro");
 
         while (cam.fieldOfView > 18)
