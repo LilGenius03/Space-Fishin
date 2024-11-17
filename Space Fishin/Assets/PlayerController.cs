@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
     bool is_move_inputing, is_look_inputing;
     Vector2 move_input, look_input;
 
+    [SerializeField] HotBarUI hobbar;
+
     void Awake()
     {
         playerControls = new InputSystem_Actions();
@@ -112,6 +114,12 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
         
     }
 
+    public void OnTab(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            hobbar.ShowUI();
+    }
+
     public void OnAscend(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -148,4 +156,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IPlayerAction
             player_fishing.SwitchBait(false);
     }
 
+    public void OnRelease(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            player_fishing.Release();
+    }
 }

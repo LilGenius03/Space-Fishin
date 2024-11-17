@@ -165,11 +165,11 @@ public class PlayerMovement : MonoBehaviour
     void ApplyGravity()
     {
         // Add Planet Gravity (orientates player to sphere)
-        /*float grav_mult = Vector3.Distance(transform.position, planet.position) / 40;
-        grav_mult = ExtensionMethods.Map(grav_mult, 0, 1, 1, 0);
-        grav_mult += 0.4f;
-        Debug.Log(grav_mult);*/
-        rb.AddForce(-transform.up * fake_gravity /** grav_mult*/, ForceMode.Acceleration);
+        float grav_mult = (80 - Vector3.Distance(transform.position, planet.position)) / 80;
+       // grav_mult = ExtensionMethods.Map(grav_mult, 0, 1, 1, 0);
+        //grav_mult += 0.8f;
+       // Debug.Log(grav_mult);
+        rb.AddForce(-transform.up * fake_gravity * grav_mult, ForceMode.Acceleration);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -189,11 +189,13 @@ public class PlayerMovement : MonoBehaviour
         {
             is_affected_by_gravity = false;
 
-            if (cam_pivot.transform.localEulerAngles.x < 0)
+
+            Debug.Log(cam_pivot.transform.localEulerAngles.x);
+            if (cam_pivot.transform.localEulerAngles.x < 0 || cam_pivot.transform.localEulerAngles.x >= 180)
                 reverse_roll = true;
 
             //currentCamRotationY = transform.eulerAngles.y;
-            //transform.rotation = Quaternion.Euler(currentCamRotationX, transform.eulerAngles.y, transform.eulerAngles.y);
+            //transform.rotation = Quaternion.Euler(cam_pivot.transform.localEulerAngles., transform.eulerAngles.y, transform.eulerAngles.y);
             //cam_pivot.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
         }
     }

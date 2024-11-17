@@ -30,6 +30,8 @@ public class PlayerFishing : MonoBehaviour
 
     Rigidbody rb;
 
+    [SerializeField] ConstantForce constant_force;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -42,6 +44,12 @@ public class PlayerFishing : MonoBehaviour
         {
             Vector3 LerpedPosition = Vector3.Lerp(bob.transform.position, bobArea.transform.position, Time.fixedDeltaTime * bobSpeed);
             bob.transform.position = new Vector3(LerpedPosition.x, bobArea.transform.position.y, LerpedPosition.z);
+
+        }
+
+        if (caught_fish && fishMovement != null)
+        {
+            bob.transform.position = fishMovement.transform.position;
         }
     }
 
@@ -49,7 +57,18 @@ public class PlayerFishing : MonoBehaviour
     {
         if(caught_fish && fishMovement != null)
         {
-            rb.linearVelocity += fishMovement.rb.linearVelocity;
+            //rb.linearVelocity += fishMovement.rb.linearVelocity * Time.fixedDeltaTime;
+            constant_force.force = (fishMovement.transform.position - transform.position);
+            //constant_force.force = fishMovement.rb.linearVelocity;
+            
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(fishMovement != null && other.transform == fishMovement.transform)
+        {
+            Release();
         }
     }
 
@@ -74,6 +93,7 @@ public class PlayerFishing : MonoBehaviour
                     fishMovement = hit.transform.GetComponent<FishMovement>();
                     fishMovement.Caught(hit.point);
                     caught_fish = true;
+                    constant_force.enabled = true;
                 }
             }
             else
@@ -84,10 +104,32 @@ public class PlayerFishing : MonoBehaviour
         }
         else
         {
-            StopCoroutine(castCoroutine);
-            castCoroutine = StartCoroutine(ReturnCast());
-            isCast = false;
+            if(caught_fish)
+            {
+                Vector3 dir = fishMovement.transform.position - transform.position;
+                fishMovement.rb.AddForce(-dir * 10 * fishMovement.resistance, ForceMode.VelocityChange);
+            }
+            else
+            {
+                StopCoroutine(castCoroutine);
+                castCoroutine = StartCoroutine(ReturnCast());
+                isCast = false;
+            }
+            
         }
+    }
+
+    public void Release()
+    {
+        caught_fish = false;
+        if (fishMovement != null)
+            fishMovement.isHooked = false;
+        fishMovement = null;
+        StopCoroutine(castCoroutine);
+        castCoroutine = StartCoroutine(ReturnCast());
+        isCast = false;
+        constant_force.force = Vector3.zero;
+        constant_force.enabled = false;
     }
 
     public IEnumerator CastTravel(Vector3 castPosition)

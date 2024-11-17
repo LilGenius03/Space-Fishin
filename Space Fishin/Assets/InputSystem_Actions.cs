@@ -143,6 +143,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Release"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf26517b-ae8b-41e5-842e-24f4abae80c9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -594,6 +603,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""SwitchBaitUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6afa0af9-21f0-4828-9ea0-a5ea3faeb305"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Release"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1194,6 +1214,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Roll = m_Player.FindAction("Roll", throwIfNotFound: true);
         m_Player_SwitchBaitDown = m_Player.FindAction("SwitchBaitDown", throwIfNotFound: true);
         m_Player_SwitchBaitUp = m_Player.FindAction("SwitchBaitUp", throwIfNotFound: true);
+        m_Player_Release = m_Player.FindAction("Release", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1286,6 +1307,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Roll;
     private readonly InputAction m_Player_SwitchBaitDown;
     private readonly InputAction m_Player_SwitchBaitUp;
+    private readonly InputAction m_Player_Release;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1303,6 +1325,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Roll => m_Wrapper.m_Player_Roll;
         public InputAction @SwitchBaitDown => m_Wrapper.m_Player_SwitchBaitDown;
         public InputAction @SwitchBaitUp => m_Wrapper.m_Player_SwitchBaitUp;
+        public InputAction @Release => m_Wrapper.m_Player_Release;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1351,6 +1374,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SwitchBaitUp.started += instance.OnSwitchBaitUp;
             @SwitchBaitUp.performed += instance.OnSwitchBaitUp;
             @SwitchBaitUp.canceled += instance.OnSwitchBaitUp;
+            @Release.started += instance.OnRelease;
+            @Release.performed += instance.OnRelease;
+            @Release.canceled += instance.OnRelease;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1394,6 +1420,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SwitchBaitUp.started -= instance.OnSwitchBaitUp;
             @SwitchBaitUp.performed -= instance.OnSwitchBaitUp;
             @SwitchBaitUp.canceled -= instance.OnSwitchBaitUp;
+            @Release.started -= instance.OnRelease;
+            @Release.performed -= instance.OnRelease;
+            @Release.canceled -= instance.OnRelease;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1589,6 +1618,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnRoll(InputAction.CallbackContext context);
         void OnSwitchBaitDown(InputAction.CallbackContext context);
         void OnSwitchBaitUp(InputAction.CallbackContext context);
+        void OnRelease(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

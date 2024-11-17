@@ -270,13 +270,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  resistance: 1
   isHooked: 0
   playerController: {fileID: 0}
   itemFish: {fileID: 11400000, guid: 0ef9e7164eb03b948890af9ce1548bd3, type: 2}
   rb: {fileID: 5343504758469782431}
   fishSpawner: {fileID: 0}
-  max_runaway_distance: 10
-  max_panic_mult: 2
+  max_speed: 8
+  min_speed: 2
+  max_runaway_distance: 50
+  max_panic_mult: 20
 --- !u!54 &5343504758469782431
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -301,7 +304,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &7877078141850139058

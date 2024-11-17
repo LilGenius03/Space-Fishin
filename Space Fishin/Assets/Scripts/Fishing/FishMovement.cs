@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Transactions;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class FishMovement : MonoBehaviour
 {
     public float speed = 5f;
     float rotationSpeed = 4.0f;
+    public float resistance = 1;
     public bool isHooked = false;
     public PlayerFishing playerController;
     public Item_Fish itemFish;
@@ -17,11 +19,15 @@ public class FishMovement : MonoBehaviour
     private Vector3 wayPoint;
     private Vector3 lastWayPoint = new Vector3(0f, 0f, 0f);
 
+    [SerializeField] float max_speed, min_speed;
+
     [SerializeField] float max_runaway_distance;
     Vector3 runa_waypoint;
     bool has_runaway_point;
     float panic_mult;
     [SerializeField] float max_panic_mult;
+
+    //public 
 
     //private Animator animator;
 
@@ -75,7 +81,10 @@ public class FishMovement : MonoBehaviour
         }
         else
         {
-            if (Vector3.Distance(transform.position, Vector3.zero) < 0.5)
+            Vector3 dir = runa_waypoint - transform.position;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), speed * panic_mult * Time.deltaTime);
+           // transform.position = Vector3.MoveTowards(transform.position, runa_waypoint, speed * panic_mult * Time.deltaTime);
+            if (Vector3.Distance(transform.position, runa_waypoint) < 0.5)
                 GetRunawayPoint();
         }
     }
@@ -85,10 +94,10 @@ public class FishMovement : MonoBehaviour
         if (isHooked)
         {
             Vector3 dir = runa_waypoint - transform.position;
-            //rb.linearVelocity += dir * Time.fixedDeltaTime * speed * panic_mult;
-            rb.MovePosition(transform.position + (dir * speed * panic_mult * Time.fixedDeltaTime));
-            //Debug.Log(dir * Time.fixedDeltaTime * speed * panic_mult);
-            Quaternion.LookRotation(dir);
+            rb.linearVelocity = dir * Time.fixedDeltaTime * speed * panic_mult;
+            //rb.MovePosition(transform.position + (dir * speed * panic_mult * Time.fixedDeltaTime));
+            Debug.Log(rb.linearVelocity);
+            //Quaternion.LookRotation(dir);
         }
     }
 
@@ -97,7 +106,7 @@ public class FishMovement : MonoBehaviour
         if (!isHooked)
         {
             isHooked = true;
-            rb.constraints = RigidbodyConstraints.None;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
             GetRunawayPoint();
             panic_mult = Random.Range(1, max_panic_mult);
         }
@@ -107,8 +116,8 @@ public class FishMovement : MonoBehaviour
     {
         runa_waypoint = transform.position + new Vector3(Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance));
         Debug.Log(Vector3.Distance(transform.position, Vector3.zero));
-        //while(Vector3.Distance(transform.position, Vector3.zero) < 40)
-          //  runa_waypoint = transform.position + new Vector3(Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance));
+        while(Vector3.Distance(runa_waypoint, Vector3.zero) < 40)
+          runa_waypoint = transform.position + new Vector3(Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance), Random.Range(-max_runaway_distance, max_runaway_distance));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -138,7 +147,7 @@ public class FishMovement : MonoBehaviour
         }
     }
 
-    bool CanFindTarget(float start = 1f, float end = 7f)
+    bool CanFindTarget(float start = -4f, float end = 4f)
     {
         wayPoint = fishSpawner.RandomWaypoint();
         if(lastWayPoint == wayPoint)
@@ -149,7 +158,7 @@ public class FishMovement : MonoBehaviour
         else
         {
             lastWayPoint = wayPoint;
-            speed = Random.Range(start, end);
+            speed = Random.Range(min_speed, max_speed);
             //animator.speed = speed;
             return true;
         }

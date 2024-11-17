@@ -23,6 +23,7 @@ public class Inventory : MonoBehaviour
 
     public int[] bait_counts = new int[6]; // cod, jar, othercommon, eel, other rare, shell
 
+    [SerializeField] HotBarUI hobba;
 
     [SerializeField] int inventory_size = 10;
 
@@ -32,8 +33,9 @@ public class Inventory : MonoBehaviour
             AddItem(full_item_list.fish_array[1]);
     }
 
-    public bool AddItem(Item_Bait new_bait)
+    public bool AddItemBait(Item_Bait new_bait)
     {
+
         if (baits.Contains(new_bait))
         {
 
@@ -58,7 +60,7 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public bool RemoveItem(Item_Bait byebait)
+    public bool RemoveItemBait(Item_Bait byebait)
     {
         if (!baits.Contains(byebait))
             return false;
@@ -74,6 +76,7 @@ public class Inventory : MonoBehaviour
 
     public bool AddItem(Item_Fish new_item)
     {
+        
         if (inventory.Count + 1 > inventory_size)
             return false;
 
@@ -92,6 +95,7 @@ public class Inventory : MonoBehaviour
         }
         else
             inventory.Add(new_item, 1);
+        hobba.ShowUI();
         Debug.Log(PrintInv());
         return true;
     }
@@ -102,6 +106,7 @@ public class Inventory : MonoBehaviour
             return false;
 
         inventory[itm]--;
+        hobba.ShowUI();
 
         if (inventory[itm] <= 0)
             inventory.Remove(itm);

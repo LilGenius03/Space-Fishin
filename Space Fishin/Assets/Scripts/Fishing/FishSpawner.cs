@@ -70,6 +70,7 @@ public class FishSpawner : MonoBehaviour
         GetWaypoints();
         RandomiseGroups();
         CreateAIGroups();
+        SpawnNPC();
         InvokeRepeating("SpawnNPC", 0.5f, spawnTimer);
     }
 
