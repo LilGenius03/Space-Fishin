@@ -74,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
     public float check_offset = 0.1f;
     Vector3 ground_check_box = new(0.5f, 0.1f, 0.5f);
 
+    [SerializeField] GameObject gameover_ui;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -120,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         {
             oxygen = 0;
             is_dead = true;
-            //Dead Func;
+            Die();
         }
     }
 
@@ -370,6 +372,14 @@ public class PlayerMovement : MonoBehaviour
         else
             cam_pivot.localPosition = Vector3.up * (height_stand - 0.2f);
         //Camera.main.fieldOfView = 90;
+    }
+
+    void Die()
+    {
+        gameover_ui.SetActive(true);
+        player_controller.FreezeInput();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void SetMovementInput(Vector2 _new_input_dir)

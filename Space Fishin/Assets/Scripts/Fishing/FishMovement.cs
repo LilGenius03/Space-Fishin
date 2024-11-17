@@ -124,7 +124,7 @@ public class FishMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && isHooked)
         {
             isHooked = false;
             playerController.Release(this);
