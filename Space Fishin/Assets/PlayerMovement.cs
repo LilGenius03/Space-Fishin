@@ -187,8 +187,8 @@ public class PlayerMovement : MonoBehaviour
         {
             is_affected_by_gravity = true;
 
-            float newCamRot = Mathf.Clamp(transform.eulerAngles.x, -rotationLimit, rotationLimit);
-            cam_pivot.transform.localEulerAngles = new Vector3(newCamRot, 0f, 0f);
+            currentCamRotationX = Mathf.Clamp(currentCamRotationX, -rotationLimit, rotationLimit);
+            cam_pivot.transform.localEulerAngles = new Vector3(currentCamRotationX, 0f, 0f);
         }
     }
 
